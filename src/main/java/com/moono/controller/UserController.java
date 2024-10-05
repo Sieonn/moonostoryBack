@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  // localhost:3000에 대해 CORS 허용
 @RestController
 @RequestMapping("/api/user")
-@CrossOrigin(origins = "https://moono-stroy.vercel.app", allowedHeaders = "*")
-public class UserController {
+@CrossOrigin(
+    origins = "https://moono-stroy.vercel.app", 
+    allowedHeaders = "*", 
+    allowCredentials = "true",
+    methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS}
+)
 public class UserController {
 
     @Autowired
