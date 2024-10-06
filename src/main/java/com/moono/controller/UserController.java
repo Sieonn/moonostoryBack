@@ -29,6 +29,7 @@ public class UserController {
     // 회원가입 API
     @PostMapping("/register")
     public String registerUser(@RequestBody UserDTO user) {
+        System.out.println("Received user registration request: " + user);
         userService.registerUser(user);
         return "회원가입 성공";
     }
