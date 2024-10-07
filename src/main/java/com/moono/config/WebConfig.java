@@ -9,7 +9,7 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addCorsMappings (CorsRegistry registry) {
 	    registry.addMapping("/**")
-	    .allowedOrigins("*")
+	    .allowedOrigins("https://moono-stroy.vercel.app")
         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
         .allowedHeaders("Authorization", "Content-Type")
         .allowCredentials(true);  // 자격 증명 허용
