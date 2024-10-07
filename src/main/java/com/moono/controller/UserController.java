@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
  // localhost:3000에 대해 CORS 허용
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
