@@ -15,9 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
- // localhost:3000에 대해 CORS 허용
+@CrossOrigin(origins = "https://moono-stroy.vercel.app") // localhost:3000에 대해 CORS 허용
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
@@ -35,21 +35,21 @@ public class UserController {
     }
     
 
- // 로그인 API
+    // 로그인 API
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody UserDTO user) {
         UserDTO loggedInUser = userService.login(user.getId(), user.getPwd());
         if (loggedInUser != null) {
             // 로그인 성공 시 JWT 토큰 발급
-        	String token = jwtTokenProvider.generateToken(
-        		    loggedInUser.getId(),
-        		    loggedInUser.getNickName(),
-        		    loggedInUser.isOneMission(),
-        		    loggedInUser.isTwoMission(),
-        		    loggedInUser.isThreeMission(),
-        		    loggedInUser.isFourMission(),
-        		    loggedInUser.isFiveMission()
-        		);
+            String token = jwtTokenProvider.generateToken(
+                loggedInUser.getId(),
+                loggedInUser.getNickName(),
+                loggedInUser.isOneMission(),
+                loggedInUser.isTwoMission(),
+                loggedInUser.isThreeMission(),
+                loggedInUser.isFourMission(),
+                loggedInUser.isFiveMission()
+            );
             
             // UserDTO를 UserResponseDTO로 변환
             UserResponseDTO userResponse = new UserResponseDTO();
@@ -71,7 +71,7 @@ public class UserController {
         }
     }
     
- // 아이디 중복 확인 API
+    // 아이디 중복 확인 API
     @GetMapping("/check-id")
     public ResponseEntity<?> checkDuplicateId(@RequestParam String id) {
         UserDTO existingUser = userService.findUserById(id); // 아이디로 사용자 찾기
@@ -101,7 +101,7 @@ public class UserController {
         return ResponseEntity.ok("미션 상태 업데이트 성공");
     }
     
- // 특정 유저 조회 API
+    // 특정 유저 조회 API
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable String id) {
         UserDTO user = userService.findUserById(id);
@@ -111,8 +111,4 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
     }
-    
-   
-    
-    
 }
